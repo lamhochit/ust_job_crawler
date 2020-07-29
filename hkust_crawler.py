@@ -1,6 +1,7 @@
 import time
 import pathlib
 import pandas as pd
+import os
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
@@ -9,14 +10,14 @@ from selenium.webdriver.chrome.service import Service
 
 class HKUSTCrawler():
     def __init__(self):
-        self.service = Service(pathlib.Path.cwd() / 'chromedriver')
+        self.service = Service(os.path.join(pathlib.Path.cwd(),  'chromedriver'))
         self.service.start()
         self.driver = webdriver.Remote(self.service.service_url)
         self.username = ''
         self.password = ''
 
     def log_in(self):
-        f = open(pathlib.Path.cwd() / "credentials.txt", "r")
+        f = open(os.path.join(pathlib.Path.cwd(), "credentials.txt"), "r")
         self.username = f.readline().strip('\n')
         self.password = f.readline().strip('\n')
         print(self.username)
